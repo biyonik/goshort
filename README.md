@@ -51,7 +51,7 @@ A high-performance URL shortener service built with Go and Angular.
 
 ```bash
 # Clone the repository
-git clone https://github.com/ahmethakanbesel/goshort.git
+git clone https://github.com/biyonik/goshort.git
 cd goshort
 
 # Start infrastructure
