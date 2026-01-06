@@ -65,3 +65,10 @@ func (r *URLRepository) GetNextCounter(ctx context.Context) (uint64, error) {
 	err := r.db.QueryRow(ctx, "SELECT nextval('url_counter_seq')").Scan(&counter)
 	return counter, err
 }
+
+func (r *URLRepository) ExistsByCode(ctx context.Context, code string) (bool, error) {
+	var exists bool
+	query := `SELECT EXISTS(SELECT 1 FROM urls WHERE code = $1 AND deleted_at IS NULL)`
+	err := r.db.QueryRow(ctx, query, code).Scan(&exists)
+	return exists, err
+}

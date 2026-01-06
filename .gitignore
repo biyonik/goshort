@@ -41,7 +41,7 @@ go.work.sum
 # =========================
 # Environment
 # =========================
-.env
+api/.env
 .env.local
 .env.*.local
 !.env.example

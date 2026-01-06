@@ -9,6 +9,7 @@ type Config struct {
 	Postgres PostgresConfig
 	Redis    RedisConfig
 	URL      URLConfig
+	JWT      JWTConfig
 }
 
 type ServerConfig struct {
@@ -34,15 +35,20 @@ type URLConfig struct {
 	ShortCodeLength int
 }
 
+type JWTConfig struct {
+	Secret    string
+	ExpiresIn int // saat cinsinden
+}
+
 func Load() (*Config, error) {
 	viper.SetConfigFile(".env")
 	viper.AutomaticEnv()
 
 	// Defaults
-	viper.SetDefault("SERVER_PORT", "8080")
-	viper.SetDefault("BASE_URL", "http://localhost:8080")
+	viper.SetDefault("SERVER_PORT", "8085")
+	viper.SetDefault("BASE_URL", "http://localhost:8085")
 	viper.SetDefault("POSTGRES_HOST", "localhost")
-	viper.SetDefault("POSTGRES_PORT", "5432")
+	viper.SetDefault("POSTGRES_PORT", "5435")
 	viper.SetDefault("POSTGRES_USER", "goshort")
 	viper.SetDefault("POSTGRES_PASSWORD", "goshort_secret")
 	viper.SetDefault("POSTGRES_DB", "goshort")
@@ -50,6 +56,8 @@ func Load() (*Config, error) {
 	viper.SetDefault("REDIS_PORT", "6379")
 	viper.SetDefault("REDIS_DB", 0)
 	viper.SetDefault("SHORT_CODE_LENGTH", 7)
+	viper.SetDefault("JWT_SECRET", "super-secret-key-change-in-production")
+	viper.SetDefault("JWT_EXPIRES_IN", 24) // 24 saat
 
 	// .env dosyası yoksa hata verme, default'lar kullanılsın
 	_ = viper.ReadInConfig()
@@ -73,6 +81,10 @@ func Load() (*Config, error) {
 		},
 		URL: URLConfig{
 			ShortCodeLength: viper.GetInt("SHORT_CODE_LENGTH"),
+		},
+		JWT: JWTConfig{
+			Secret:    viper.GetString("JWT_SECRET"),
+			ExpiresIn: viper.GetInt("JWT_EXPIRES_IN"),
 		},
 	}, nil
 }

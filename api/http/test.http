@@ -1,0 +1,70 @@
+### Health Check
+GET http://localhost:8085/health
+
+###################################
+# AUTH ENDPOINTS
+###################################
+
+### Register - Yeni kullanıcı kaydı
+POST http://localhost:8085/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "ahmet.altun60@gmail.com",
+    "password": "Az123456+-"
+}
+
+### Login - Kullanıcı girişi
+POST http://localhost:8085/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "ahmet.altun60@gmail.com",
+    "password": "Az123456+-"
+}
+
+### Me - Mevcut kullanıcı bilgisi (Token gerekli!)
+GET http://localhost:8085/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5YjkyNzMtODAxZS03MDQyLWJmODAtZDRiOTIzZjFhYWYzIiwiZW1haWwiOiJhaG1ldC5hbHR1bjYwQGdtYWlsLmNvbSIsInRpZXIiOiJwcm8iLCJleHAiOjE3Njc3ODgyNDAsImlhdCI6MTc2NzcwMTg0MH0.dAZUv7c3GdQrTmsah_5U-5DGkb_aCSuFmL769uCwmH0
+###################################
+# URL ENDPOINTS
+###################################
+
+### URL Oluştur (Anonim)
+POST http://localhost:8085/api/urls
+Content-Type: application/json
+
+{
+    "long_url": "https://google.com"
+}
+
+### URL Oluştur (Authenticated - Token ile)
+POST http://localhost:8085/api/urls
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5YjkyNzMtODAxZS03MDQyLWJmODAtZDRiOTIzZjFhYWYzIiwiZW1haWwiOiJhaG1ldC5hbHR1bjYwQGdtYWlsLmNvbSIsInRpZXIiOiJmcmVlIiwiZXhwIjoxNzY3Nzg3OTgzLCJpYXQiOjE3Njc3MDE1ODN9.zdAYp-5i3L3xU1cs7-ZZQMYci5jIYxqivgDOiGqopOM
+
+{
+    "long_url": "https://github.com"
+}
+
+### URL Oluştur (Expiration ile)
+POST http://localhost:8085/api/urls
+Content-Type: application/json
+
+{
+    "long_url": "https://github.com",
+    "url_expiration": "2025-02-01T00:00:00Z"
+}
+
+### Redirect Test (code'u değiştir)
+GET http://localhost:8085/004nJWl
+
+### Custom Code ile URL Oluştur (Pro User)
+POST http://localhost:8085/api/urls
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5YjkyNzMtODAxZS03MDQyLWJmODAtZDRiOTIzZjFhYWYzIiwiZW1haWwiOiJhaG1ldC5hbHR1bjYwQGdtYWlsLmNvbSIsInRpZXIiOiJwcm8iLCJleHAiOjE3Njc3ODgyNDAsImlhdCI6MTc2NzcwMTg0MH0.dAZUv7c3GdQrTmsah_5U-5DGkb_aCSuFmL769uCwmH0
+
+{
+  "long_url": "https://google.com",
+  "custom_code": "my-google"
+}

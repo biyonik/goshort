@@ -5,6 +5,7 @@ import "time"
 type CreateURLRequest struct {
 	LongURL       string     `json:"long_url"`
 	UrlExpiration *time.Time `json:"url_expiration"`
+	CustomCode    *string    `json:"custom_code"` // Pro only!
 }
 
 type CreateURLResponse struct {
